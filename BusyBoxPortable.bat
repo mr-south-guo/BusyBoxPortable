@@ -17,8 +17,8 @@ if not defined HOME (
 PATH=%HOME%\bin;%PATH%
 
 if "%~1"=="" (
-  :: No arguments. Invoke a login shell at %HOME%.
-  set _BUSYBOX_STARTUP_DIR=%HOME%
+  :: No arguments. Invoke a login shell at current directory.
+  set "_BUSYBOX_STARTUP_DIR=%cd%"
   "%_BUSYBOX_BIN%" sh -l
 ) else if exist "%~1\*" (
   :: A directory is specified. Invoke a login shell at it.
