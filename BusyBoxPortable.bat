@@ -1,20 +1,19 @@
 @echo off
-
-set _SCRIPT_DIR=%~dp0
 title BusyBox
 
+for %%I in ("%~dp0.") do set "_SCRIPT_DIR=%%~fI"
 :: Default to 64bit unless 32bit is specified.
-if "%1"=="32" (
-    set _BUSYBOX_BIN=%_SCRIPT_DIR%App\BusyBox\busybox32.exe
+if "%~1"=="32" (
+    set "_BUSYBOX_BIN=%_SCRIPT_DIR%\App\BusyBox\busybox32.exe"
     shift
 ) else (
-    set _BUSYBOX_BIN=%_SCRIPT_DIR%App\BusyBox\busybox64.exe
+    set "_BUSYBOX_BIN=%_SCRIPT_DIR%\App\BusyBox\busybox64.exe"
 )
 
 if not defined HOME (
-    set HOME=%_SCRIPT_DIR%Data
+    set "HOME=%_SCRIPT_DIR%\Data"
 )
-PATH=%HOME%\bin;%PATH%
+set "PATH=%HOME%\bin;%PATH%"
 
 if "%~1"=="" (
   :: No arguments. Invoke a login shell at current directory.
@@ -22,12 +21,29 @@ if "%~1"=="" (
   "%_BUSYBOX_BIN%" sh -l
 ) else if exist "%~1\*" (
   :: A directory is specified. Invoke a login shell at it.
-  set _BUSYBOX_STARTUP_DIR=%~1
+  set "_BUSYBOX_STARTUP_DIR=%~1"
   "%_BUSYBOX_BIN%" sh -l
 ) else if exist "%~1" (
-  :: A file is specified. Run the file as a shell script.
-  "%_BUSYBOX_BIN%" sh "%~1"
+  :: A file is specified. Run the file as a shell script with all remaining arguments.
+  "%_BUSYBOX_BIN%" sh "%*"
+) else if "%~1"=="-h" (
+  goto :Help
+) else if "%~1"=="--help" (
+  goto :Help
 ) else (
-  echo %1 does not exist.
-  pause
+  :: Run the parameters as busybox command.
+  "%_BUSYBOX_BIN%" sh -c "%*"
 )
+
+exit /b
+
+:Help
+echo:Usage: %~n0% [DIR ^| FILE [ARG0 ARG1 ...] ^| CMD [ARG0 ARG1 ... ]]
+echo:
+echo:Launch busybox-w32. When no arguments are provided, start an interactive shell at the current directory.
+echo:
+echo:OPTIONS:
+echo:  DIR   start an interactive shell at directory DIR.
+echo:  FILE  run the FILE as busybox shell script and exit.
+echo:  CMD   run the CMD as busybox command and exit.
+exit /b

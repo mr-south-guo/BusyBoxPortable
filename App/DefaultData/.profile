@@ -1,11 +1,17 @@
-alias ll="ls -alh"
+##### .profile for BusyBoxPortable
+# This file will be sourced if BusyBoxPortable is invoked as interactive/login shell.
+# Caution:
+# - Do not modify this file unless absolute necessary.
+# - It is recommended to put your own customization in `.bashrc` instead, which
+#   will be sourced right after this file.
+#####
 
-source "$HOME/.color.rc"
-source "$HOME/.console-title.rc"
+. "${HOME}/.color.rc"
+. "${HOME}/.console-title.rc"
 
 # --------------------
 # Config prompt string.
-[[ ${_CONSOLE_TITLE} ]] || _CONSOLE_TITLE="BusyBox - \u - \w"
+test "${_CONSOLE_TITLE}" || _CONSOLE_TITLE="BusyBox - \u - \w"
 
 _PS_ITEM_2ND_LINE="\$(date +%H:%M:%S)"
 
@@ -22,6 +28,11 @@ _PS_ITEM_DIR="${_COLOR_BCyan}\w${_COLOR_Off}"
 
 PS1="${_PS_TITLE_BEGIN}${_CONSOLE_TITLE}${_PS_TITLE_END}${_PS_ITEM_USER} ${_PS_ITEM_DIR}\n${_PS_ITEM_2ND_LINE} ${_PS_ITEM_LAST} "
 
-# --------------------
-# cd to startup directory if defined.
-[[ ${_BUSYBOX_STARTUP_DIR} ]] && cd "${_BUSYBOX_STARTUP_DIR}"
+# ---------- Required by BusyBoxPortable: Begin
+if test "${_BUSYBOX_STARTUP_DIR}"
+then
+    cd "${_BUSYBOX_STARTUP_DIR}" || echo "Failed to cd into ${_BUSYBOX_STARTUP_DIR}"
+fi
+# ---------- Required by BusyBoxPortable: End
+
+test -f "${HOME}/.bashrc" && . "${HOME}/.bashrc"

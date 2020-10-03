@@ -77,25 +77,25 @@ _COLOR_On_ICyan='\e[0;106m'    # Cyan
 _COLOR_On_IWhite='\e[0;107m'   # White
 
 echo_color_error() {
-	echo -n -e ${_COLOR_BRed}
+	echo -n -e "${_COLOR_BRed}"
 	echo -e "$1"
-	echo -n -e ${_COLOR_Off}
+	echo -n -e "${_COLOR_Off}"
 }
 
 echo_color_warning() {
-	echo -n -e ${_COLOR_BYellow}
+	echo -n -e "${_COLOR_BYellow}"
 	echo -e "$1"
-	echo -n -e ${_COLOR_Off}
+	echo -n -e "${_COLOR_Off}"
 }
 
 echo_color_highlight() {
-	echo -n -e ${_COLOR_BGreen}
+	echo -n -e "${_COLOR_BGreen}"
 	echo -e "$1"
-	echo -n -e ${_COLOR_Off}
+	echo -n -e "${_COLOR_Off}"
 }
 
 echo_color_info() {
-	echo -n -e ${_COLOR_Off}
+	echo -n -e "${_COLOR_Off}"
 	echo -e "$1"
-	echo -n -e ${_COLOR_Off}
+	echo -n -e "${_COLOR_Off}"
 }
