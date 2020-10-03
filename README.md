@@ -7,7 +7,7 @@ A portable launcher for [busybox-w32](http://frippery.org/busybox/), providing s
 ## Features
 
 - **Portable.**
-  - Nothing to left behind. Scattered files used by `busybox-w32`'s interactive shell are stored portably in either `Data/` directory or anywhere the environment variable `HOME` points to.
+  - Scattered files used by `busybox-w32`'s interactive shell are stored portably in either `Data/` directory or anywhere the environment variable `HOME` points to.
   - Your customization of the interactive shell (e.g. prompt string, alias, functions, etc.), together with the shell history, will go with you.
   - No program remains running waiting for `busybox-w32` to close to clean up. Which means, no mess will be left behind even when unexpected termination of programs.
 - **Launch interactive shell at a specified directory, or at current directory.**
