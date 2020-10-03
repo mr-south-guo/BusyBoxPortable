@@ -13,6 +13,11 @@ if "%~1"=="32" (
 if not defined HOME (
     set "HOME=%_SCRIPT_DIR%\Data"
 )
+if not exist "%HOME%\.profile" call :InitHome
+if not exist "%HOME%\.profile" (
+    echo:Failed to initialize HOME ^("%HOME%"^)
+    exit /b 1
+)
 set "PATH=%HOME%\bin;%PATH%"
 
 if "%~1"=="" (
@@ -46,4 +51,9 @@ echo:OPTIONS:
 echo:  DIR   start an interactive shell at directory DIR.
 echo:  FILE  run the FILE as busybox shell script and exit.
 echo:  CMD   run the CMD as busybox command and exit.
+exit /b
+
+:InitHome
+echo:Initializing "%HOME%" ...
+xcopy "%_SCRIPT_DIR%\App\DefaultData" "%HOME%" /e /i
 exit /b
