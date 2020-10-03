@@ -1,7 +1,9 @@
 @echo off
+setlocal
 title BusyBox
 
 for %%I in ("%~dp0.") do set "_SCRIPT_DIR=%%~fI"
+
 :: Default to 64bit unless 32bit is specified.
 if "%~1"=="32" (
     set "_BUSYBOX_BIN=%_SCRIPT_DIR%\App\BusyBox\busybox32.exe"
@@ -13,7 +15,7 @@ if "%~1"=="32" (
 if not defined HOME (
     set "HOME=%_SCRIPT_DIR%\Data"
 )
-if not exist "%HOME%\.profile" call :InitHome
+if not exist "%HOME%\.profile" call :Sub_InitHome
 if not exist "%HOME%\.profile" (
     echo:Failed to initialize HOME ^("%HOME%"^)
     exit /b 1
@@ -40,7 +42,8 @@ if "%~1"=="" (
   "%_BUSYBOX_BIN%" sh -c "%*"
 )
 
-exit /b
+:EndScript
+endlocal & exit /b
 
 :Help
 echo:Usage: %~n0% [DIR ^| FILE [ARG0 ARG1 ...] ^| CMD [ARG0 ARG1 ... ]]
@@ -51,9 +54,9 @@ echo:OPTIONS:
 echo:  DIR   start an interactive shell at directory DIR.
 echo:  FILE  run the FILE as busybox shell script and exit.
 echo:  CMD   run the CMD as busybox command and exit.
-exit /b
+goto :EndScript
 
-:InitHome
+:Sub_InitHome
 echo:Initializing "%HOME%" ...
 xcopy "%_SCRIPT_DIR%\App\DefaultData" "%HOME%" /e /i
 exit /b
