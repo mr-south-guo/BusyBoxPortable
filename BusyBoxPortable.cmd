@@ -3,14 +3,7 @@ setlocal
 title BusyBox
 
 for %%I in ("%~dp0.") do set "_SCRIPT_DIR=%%~fI"
-
-:: Default to 64bit unless 32bit is specified.
-if "%~1"=="32" (
-    set "_BUSYBOX_BIN=%_SCRIPT_DIR%\App\BusyBox\busybox32.exe"
-    shift
-) else (
-    set "_BUSYBOX_BIN=%_SCRIPT_DIR%\App\BusyBox\busybox64.exe"
-)
+set "_BUSYBOX_BIN=%_SCRIPT_DIR%\App\BusyBox\busybox.exe"
 
 if not defined HOME (
     set "HOME=%_SCRIPT_DIR%\Data"
