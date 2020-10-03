@@ -4,7 +4,7 @@ setlocal
 for %%I in ("%~dp0.") do set "_SCRIPT_DIR=%%~fI"
 
 set "_ADMIN_BIN=%_SCRIPT_DIR%\App\elevate\elevate.exe"
-set "_BUSYBOX_BIN=%_SCRIPT_DIR%\BusyBoxPortable.bat"
+set "_BUSYBOX_BIN=%_SCRIPT_DIR%\BusyBoxPortable.cmd"
 
 if "%~1"=="-h" (
   goto :Help
