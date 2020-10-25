@@ -1,8 +1,8 @@
 #!/bin/sh
 
 echo_console_title() {
-	echo -en "\e]0;$1\007"
+	printf "\e]0;%b\007" "$*"
 }
 
-_PS_TITLE_BEGIN="\[\e]0;"
-_PS_TITLE_END="\a\]"
+export _PS_TITLE_BEGIN="\[\e]0;"
+export _PS_TITLE_END="\a\]"

@@ -1,13 +1,16 @@
+#!/bin/sh
+# shellcheck disable=1090,2154
+
 ##### .profile for BusyBoxPortable
 # This file will be sourced if BusyBoxPortable is invoked as interactive/login shell.
 # Caution:
 # - Do not modify this file unless absolute necessary.
-# - It is recommended to put your own customization in `.bashrc` instead, which
+# - It is recommended to put your own customization in `.ashrc` instead, which
 #   will be sourced right after this file.
 #####
 
-. "${HOME}/.color.rc"
-. "${HOME}/.console-title.rc"
+[ -f "${HOME}/.color.rc" ] && . "${HOME}/.color.rc"
+[ -f "${HOME}/.console-title.rc" ] && . "${HOME}/.console-title.rc"
 
 # --------------------
 # Config prompt string.
@@ -16,7 +19,7 @@ test "${_CONSOLE_TITLE}" || _CONSOLE_TITLE="BusyBox - \u - \w"
 _PS_ITEM_2ND_LINE="\$(date +%H:%M:%S)"
 
 # Different settings for root or non-root.
-if [[ "${USER}" == "root" ]]; then
+if [ "${USER}" = "root" ]; then
     _PS_ITEM_USER="${_COLOR_BWhite}${_COLOR_On_Red}\u@\h${_COLOR_Off}"
     _PS_ITEM_LAST="${_COLOR_BRed}#${_COLOR_Off}"
 else
@@ -35,4 +38,4 @@ then
 fi
 # ---------- Required by BusyBoxPortable: End
 
-test -f "${HOME}/.bashrc" && . "${HOME}/.bashrc"
+[ -f "${HOME}/.ashrc" ] && . "${HOME}/.ashrc"

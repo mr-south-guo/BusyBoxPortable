@@ -1,6 +1,9 @@
 #!/bin/sh
+# shellcheck disable=1090
 
-[[ -f "${HOME}/.color.rc" ]] && source "${HOME}/.color.rc"
+[ -f "${HOME}/.color.rc" ] && . "${HOME}/.color.rc"
 
-echo -ne "${_COLOR_BGreen}BusyBox ${_COLOR_Cyan}Hello World!!! ${_COLOR_BRed}\n"
-read -p "Press Enter to exit: " answer
+# shellcheck disable=2059,2154
+printf "${_COLOR_BGreen}BusyBox ${_COLOR_Cyan}Hello World!!! ${_COLOR_BRed}\n"
+
+printf "Press [Enter] key to continue..."; read -r
